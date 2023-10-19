@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %} Blogs {% endblock %}
+{% block homeactive %} active {% endblock homeactive %}
+
+
+{% block body %}
+
+
+<!-- ========================= SECTION PAGETOP ========================= -->
+<section style="margin-top:10px;" class=" ">
+  <div class="container mt-5">
+
+
+    <h2 class="title-page"></h2> 
+  </div>
+  <!-- container //  -->
+</section>
+<!-- ========================= SECTION INTRO END// ========================= -->
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+  <div class="container">
+    <div class="row">
+      <aside class="col-md-2">
+        <div class="card">
+          <article class="filter-group">
+            <header class="card-header">
+              <a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
+                <i class="icon-control fa fa-chevron-down"></i>
+                <button class="btn btn-outline-primary">𝑪𝒂𝒕𝒆𝒈𝒐𝒓𝒊𝒆𝒔</button>
+              </a>
+            </header>
+            <div class="filter-content collapse show" id="collapse_1" style="">
+              <div class="card-body">
+                <ul class="list-menu">
+                  <li class="me-2">
+                    <button class="btn btn-outline-danger" onclick="window.location.href='{% url 'blogs' %}'">𝑨𝒍𝒍 𝑩𝒍𝒐𝒈𝒔</button>
+                </li>
+                
+                  {% for cat in categories %}
+                  <li>
+                    <button class="btn btn-outline-warning" onclick="window.location.href='{% url 'cat_wise_blog' slug=cat.slug %}'">{{cat.category_name}}</button>
+                </li>
+                
+                
+                  {% endfor %}
+              </ul>
+              
+              </div>
+              <!-- card-body.// -->
+            </div>
+          </article>
+        </div>
+        <!-- card.// -->
+      </aside>
+      <main class="col-md-9">
+        <header class="border-bottom mb-4 pb-3">
+          <div class="form-inline">
+            <span class="mr-md-auto"><b></b> <h2>🅾🆄🆁 🅱🅻🅾🅶🆂</h2></span>
+          </div>
+        </header>
+        
+        <div style=" " class="row mx-auto justify-content-center">
+          {% if posts %} 
+          {% for blog in posts %}
+            <div style="max-width:500pxpx;" class="col-lg-9  m-1">
+              <figure class="card card-product-grid">
+                <div class="img-wrap">
+                  <a href="#"><img style="max-width:300px; height:350px; object-fit:cover;" src="{{ blog.image.url }}" /></a>
+                </div>
+                <!-- img-wrap.// -->
+                <figcaption class="info-wrap">
+                  <div class="fix-height">
+                    <h3>
+                      <a style="text-decoration: none; color: #f44336;">
+                        𝑻𝒊𝒕𝒍𝒆: {{ blog.title }}
+                      </a>
+                    </h3>
+                   <h4> <p>𝑫𝒆𝒔𝒄𝒓𝒊𝒑𝒕𝒊𝒐𝒏:</h4>{{ blog.content }}</p> 
+
+                  <a class="btn btn-outline-danger btn-block" href="{% url 'blog_details' blog_id=blog.id %}">𝐁𝐥𝐨𝐠 𝐃𝐞𝐭𝐚𝐢𝐥𝐬</a>
+                  <a class="btn btn-outline-warning btn-block" href="{% url 'save_favorite' blog_id=blog.id %}">𝐅𝐚𝐯𝐨𝐫𝐢𝐭𝐞</a>
+                  
+                </figcaption>
+              </figure>
+            </div>
+          <!-- col.// -->
+          {% endfor %} 
+          {% else %}
+          <div>
+            <h2>No result found. Please try again.</h2>
+          </div>
+          {% endif %}
+        </div>
+
+{% block js %} 
+<script></script>
+{% endblock %}
+{% endblock %}
